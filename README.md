@@ -159,3 +159,54 @@ This renames the default nginx.conf to nginx-backup.conf, allowing you to revert
    ```bash
    Hello from Nginx conf file
    ```
+
+
+## Serving Static Files Using Nginx
+
+Now that you've successfully configured Nginx to return a simple message, let's move on to serving static files, such as HTML and CSS, using Nginx.
+
+### 1. Create a Folder for Your Website Files
+  First, create a folder to hold your website files. For this example, we'll use the `/etc/nginx/website` directory:
+
+```bash
+mkdir /etc/nginx/website
+```
+Inside this folder, create your basic index.html and style.css files.
+
+### 2. Modify the Nginx Configuration
+Now, modify the Nginx configuration file to serve these static files. Update your nginx.conf file like this:
+
+```bash
+events {
+    # The 'events' block remains empty as no special event handling is needed.
+}
+
+http {
+    include /etc/nginx/mime.types;
+    # 'mime.types' is included to help Nginx recognize file types like HTML, CSS, JS, etc.
+
+    server {
+        listen 80;
+        server_name _;
+
+        root /etc/nginx/website;
+        # The 'root' directive tells Nginx where your static files are located.
+        # Here, it points to /etc/nginx/website where the index.html and style.css are stored.
+    }
+}
+```
+
+### 3. Test and Reload the Configuration
+  As always, before reloading the Nginx service, test the configuration to ensure it's correct:
+```bash
+nginx -t
+```
+If the test is successful, reload Nginx to apply the changes:
+
+```bash
+nginx -s reload
+```
+### 4. Access Your Static Site
+Now, open your browser and navigate to http://localhost:8090. You should see your simple static webpage with the styles applied from style.css.
+
+If you set everything up correctly, the browser will display the page with a heading "Welcome to My Static Website" and a paragraph styled with the CSS file.
