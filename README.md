@@ -210,3 +210,9 @@ nginx -s reload
 Now, open your browser and navigate to http://localhost:8090. You should see your simple static webpage with the styles applied from style.css.
 
 If you set everything up correctly, the browser will display the page with a heading "Welcome to My Static Website" and a paragraph styled with the CSS file.
+
+---
+
+## For Deploying in AWS
+
+A basic NodeJS app deployment in AWS with SSL. Follow this repo -> [AWS Deployment](https://gist.github.com/piyushgarg-dev/8b14c87c8ff4d626ecbc747b6b9fc57f)
