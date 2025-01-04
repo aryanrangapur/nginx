@@ -99,4 +99,63 @@ First, we'll use Docker to create an Ubuntu machine and get started with Nginx. 
 
   Familiarizing yourself with this file is essential, as it’s where all the magic happens!
     
-    
+
+### Modifying and Testing the Nginx Configuration
+
+Once you've installed Nginx, let's dive into some practical steps to customize its configuration.
+
+1. **Backup the Original Configuration File**  
+   It's always a good idea to back up the default configuration file before making any changes. To rename the file, use the `mv` command:
+
+   ```bash
+   mv /etc/nginx/nginx.conf /etc/nginx/nginx-backup.conf
+
+This renames the default nginx.conf to nginx-backup.conf, allowing you to revert to the original settings if needed.
+
+2. **Create a New Configuration File**
+   Now, let's create a fresh nginx.conf file and add the following content:
+
+   ```bash
+   events {
+       
+   }
+   
+   http {
+       # The 'http' block is where HTTP-related configurations are defined, such as servers, locations, and directives for handling HTTP requests.
+   
+       server {
+           listen 80; 
+          
+           server_name _; 
+           # Using '_' acts as a wildcard, meaning it accepts any hostname.
+   
+           location / {
+               # The 'location' block defines how Nginx should handle requests to a specific path. Here, '/' refers to the root path.
+   
+               return 200 "Hello from Nginx conf file"; 
+           }
+       }
+   }
+   ```
+   This configuration sets up a simple HTTP server that responds to any request to the root path (/) with a 200 OK status and the message Hello from Nginx conf file.
+
+3. **Test the Configuration**
+   Before applying the changes, test the new configuration to ensure there are no syntax errors:
+
+   ```bash
+    nginx -t
+   ```
+   If everything is correct, you should see a message like:
+   ```bash
+   nginx: configuration file /etc/nginx/nginx.conf test is successful
+   ```
+   Reload Nginx
+   Apply the new configuration without restarting the server by reloading Nginx:
+   ```bash
+   nginx -s reload
+   ```
+   Verify the Changes
+   Open your browser and navigate to http://localhost:8090. You should see the message:
+   ```bash
+   Hello from Nginx conf file
+   ```
